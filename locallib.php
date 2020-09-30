@@ -45,6 +45,9 @@ function starttime_to_sql($starttime){
         case 'between7and8weeks':
             return 'BETWEEN ' . ($time_now + ($time_week * 6)) . ' AND ' . ($time_now + ($time_week * 8));
             break;
+        case 'morethan8weeks':
+            return '> ' . ($time_now + ($time_week * 8));
+            break;
     }
     return '';
 }
@@ -73,6 +76,9 @@ function is_time_in_area($starttime, $time){
             break;
         case 'between7and8weeks':
             return ($time_now + ($time_week * 6)) <= $time && $time <= ($time_now + ($time_week * 8));
+            break;
+        case 'morethan8weeks':
+            return $time > ($time_now + ($time_week * 8));
             break;
     }
     return false;
@@ -154,6 +160,13 @@ function select_prepare($select){
 }*/
 
 function get_courses_records($fromform){
+    $past = get_courses_records_time($fromform, true);
+    $future = get_courses_records_time($fromform, false);
+
+    return array_merge($past, $future);
+}
+
+function get_courses_records_time($fromform, $past){
     global $DB;
 
     $tosearch = new stdClass;
@@ -163,14 +176,21 @@ function get_courses_records($fromform){
     $tosearch->processingtime = processingtime_to_sql($fromform->processingtime);
     $tosearch->starttime = starttime_to_sql($fromform->starttime);
 
+    $to_midnight = strtotime('today midnight');
+
     $query = "
-        SELECT id, courseid, subjectarea, university, courselanguage, processingtime, starttime, noindexcourse FROM {ildmeta}
+        SELECT * FROM {ildmeta}
             WHERE
                 subjectarea LIKE '$tosearch->subjectarea'
                 AND courselanguage LIKE '$tosearch->courselanguage'
                 AND processingtime $tosearch->processingtime
                 AND starttime $tosearch->starttime
                 AND noindexcourse != 1";
+    if ($past){
+        $query .= " AND starttime <= $to_midnight ORDER BY starttime DESC, coursetitle ASC";
+    }else{
+        $query .= " AND starttime > $to_midnight ORDER BY starttime ASC, coursetitle ASC";
+    }
     
     // TODO: Improve the processing time
     $filtered = array();
@@ -202,7 +222,17 @@ function get_filtered_university_list($records){
     global $DB;
 
     $universities = $DB->get_record('user_info_field', array('shortname' => 'universities'));
-    $university_list = explode("\n", $universities->param1);
+    switch(current_language()){
+        case 'de':
+            $university_list = explode("\n", $universities->param1);
+            break;
+        case 'en':
+            $university_list = explode("\n", $universities->param2);
+            break;
+        default:
+            $university_list = explode("\n", $universities->param1);
+            break;
+    }
 
     $filtered = array();
 
@@ -218,8 +248,8 @@ function get_filtered_university_list($records){
         }
     }
 
-    array_unshift($filtered, '1=>Alle Hochschulen');
-    array_unshift($filtered, '0=>Hochschule');
+    array_unshift($filtered, '1=>'.get_string('university_all','block_ildmetaselect'));
+    array_unshift($filtered, '0=>'.get_string('university','block_ildmetaselect'));
 
     return $filtered;
 }
@@ -228,7 +258,17 @@ function get_university_list($input){
     global $DB;
 
     $universities = $DB->get_record('user_info_field', array('shortname' => 'universities'));
-    $university_list =  explode("\n", $universities->param1);
+    switch(current_language()){
+        case 'de':
+            $university_list = explode("\n", $universities->param1);
+            break;
+        case 'en':
+            $university_list = explode("\n", $universities->param2);
+            break;
+        default:
+            $university_list = explode("\n", $universities->param1);
+            break;
+    }
     
     $data = copy_to_data($input);
     $filtered = array();
@@ -239,8 +279,8 @@ function get_university_list($input){
             $filtered[$key] = "$key=>$value";
         }
     }
-    array_unshift($filtered, '1=>Alle Hochschulen');
-    array_unshift($filtered, '0=>Hochschule');
+    array_unshift($filtered, '1=>'.get_string('university_all','block_ildmetaselect'));
+    array_unshift($filtered, '0=>'.get_string('university','block_ildmetaselect'));
 
     return $filtered;
 }
@@ -249,21 +289,31 @@ function get_filtered_subjectarea_list($records){
     global $DB;
 
     $subjectareas = $DB->get_record('user_info_field', array('shortname' => 'subjectareas'));
-    $subjectarea_list =  explode("\n", $subjectareas->param1);
+    switch(current_language()){
+        case 'de':
+            $subjectarea_list = explode("\n", $subjectareas->param1);
+            break;
+        case 'en':
+            $subjectarea_list = explode("\n", $subjectareas->param2);
+            break;
+        default:
+            $subjectarea_list = explode("\n", $subjectareas->param1);
+            break;
+    }
 
     $filtered = array();
 
     foreach($subjectarea_list as $key => $value){
         foreach($records as $record){
             if($record->subjectarea == $key){
-                $filtered[$key+2] = ($key+2)."$k=>$value";
+                $filtered[$key+2] = ($key+2)."=>$value";
                 break;
             }
         }
     }
 
-    array_unshift($filtered, '1=>Alle Wissensgebiete');
-    array_unshift($filtered, '0=>Wissensgebiet');
+    array_unshift($filtered, '1=>'.get_string('subjectarea_all','block_ildmetaselect'));
+    array_unshift($filtered, '0=>'.get_string('subjectarea','block_ildmetaselect'));
 
     return $filtered;
 }
@@ -272,7 +322,17 @@ function get_filtered_subjectarea_list($records){
 function get_subjectarea_list($input){
     global $DB;
     $subjectareas = $DB->get_record('user_info_field', array('shortname' => 'subjectareas'));
-    $subjectarea_list =  explode("\n", $subjectareas->param1);
+    switch(current_language()){
+        case 'de':
+            $subjectarea_list = explode("\n", $subjectareas->param1);
+            break;
+        case 'en':
+            $subjectarea_list = explode("\n", $subjectareas->param2);
+            break;
+        default:
+            $subjectarea_list = explode("\n", $subjectareas->param1);
+            break;
+    }
     
     $data = copy_to_data($input);
     $filtered = array();
@@ -284,8 +344,8 @@ function get_subjectarea_list($input){
         }
     }
 
-    array_unshift($filtered, '1=>Alle Wissensgebiete');
-    array_unshift($filtered, '0=>Wissensgebiet');
+    array_unshift($filtered, '1=>'.get_string('subjectarea_all','block_ildmetaselect'));
+    array_unshift($filtered, '0=>'.get_string('subjectarea','block_ildmetaselect'));
     
     return $filtered;
 }
@@ -346,7 +406,8 @@ function get_filtered_starttime_list($records){
         'less2weeks' => get_string('starttime_less2weeks','block_ildmetaselect'),
         'between3and4weeks' => get_string('starttime_between3and4weeks','block_ildmetaselect'),
         'between5and6weeks' => get_string('starttime_between5and6weeks','block_ildmetaselect'),
-        'between7and8weeks' => get_string('starttime_between7and8weeks', 'block_ildmetaselect')
+        'between7and8weeks' => get_string('starttime_between7and8weeks', 'block_ildmetaselect'),
+        'morethan8weeks' => get_string('starttime_morethan8weeks', 'block_ildmetaselect')
     ];
 
     $filtered = array();
@@ -393,17 +454,17 @@ function get_filtered_lang_list($records){
     global $DB;
 
     $lang_list = [
-        'Deutsch',
-        'Englisch'
+        get_string('german','block_ildmetaselect'),
+        get_string('english','block_ildmetaselect')
     ];
 
     $filtered = array();
-    $filtered[] = '0=>Kurssprache';
-    $filtered[] = '1=>Alle Kurssprachen';
+    $filtered[] = '0=>'.get_string('courselanguage','block_ildmetaselect');
+    $filtered[] = '1=>'.get_string('courselanguage_all','block_ildmetaselect');
 
     foreach($lang_list as $key => $value){
         foreach($records as $record){
-            if($key == $records->courselanguage){
+            if($key == $record->courselanguage){
                 $filtered[$key+2] = ($key+2)."=>$value";
             }
         }
