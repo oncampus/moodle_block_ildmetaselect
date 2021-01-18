@@ -56,3 +56,4 @@ $string['h_confirmation'] = 'Teilnahmebestätigung';
 $string['license'] = 'Lizenz';
 
 $string['filter'] = 'Filtern';
+$string['picturecredits'] = 'Bildnachweis';

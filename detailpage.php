@@ -278,6 +278,8 @@ $render_data->started = $started;
 $render_data->fileurl = $fileurl;
 $render_data->is_enrolled = $is_enrolled;
 $render_data->altpic = $fileurl_di;
+$render_data->picturecredits = $getdb->picturecredits;
+
 
 $render_data->lecturer_detail = get_string('lecturer_detail', 'block_ildmetaselect');
 $render_data->university_detail = get_string('university_detail', 'block_ildmetaselect');
@@ -289,6 +291,7 @@ $render_data->hours = get_string('hours', 'block_ildmetaselect');
 $render_data->free = get_string('free', 'block_ildmetaselect');
 $render_data->enrol = get_string('enrol', 'block_ildmetaselect');
 $render_data->tocourse = get_string('tocourse', 'block_ildmetaselect');
+$render_data->picturecredits_detail = get_string('picturecredits', 'block_ildmetaselect');
 
 $render_data->h_awaits = get_string('h_awaits', 'block_ildmetaselect');
 $render_data->h_learn = get_string('h_learn', 'block_ildmetaselect');

@@ -103,7 +103,9 @@ function get_metacourses($coursestodisplay, $context) {
                 if ($data->starttime > $to_midnight) {
                     $render_data->starttime = $starttime;
                 }
+                $render_data->picturecredits = $getdb->picturecredits;
 
+                $render_data->picturecredits_detail = get_string('picturecredits', 'block_ildmetaselect');
                 $render_data->lecturer_detail = get_string('lecturer_detail', 'block_ildmetaselect');
                 $render_data->university_detail = get_string('university_detail', 'block_ildmetaselect');
                 $render_data->courselanguage_detail = get_string('courselanguage_detail', 'block_ildmetaselect');
