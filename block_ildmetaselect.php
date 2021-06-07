@@ -60,23 +60,33 @@ class block_ildmetaselect extends block_base
         //Zu durchsuchende Bereiche: Kurstitel, Tags, Kursbeschreibungstext, Metainfos, Vorname + Nachname weiterer Autoren
         $searchquery = "SELECT * FROM mdl_ildmeta
 						WHERE
-							(coursetitle LIKE '%$searchterm%'
-							OR tags LIKE '%$searchterm%'
-							OR teasertext LIKE '%$searchterm%'
-							OR lecturer LIKE '%$searchterm%'
+							(coursetitle LIKE :coursetitle
+							OR tags LIKE :tags
+							OR teasertext LIKE :teasertext
+							OR lecturer LIKE :lecturer
 							$university_query
 							$subjectarea_query
-							OR courselanguage LIKE '%$searchterm%'
-							OR detailslecturer LIKE '%$searchterm%'
-                            OR detailsmorelecturer LIKE '%$searchterm%')";
+							OR courselanguage LIKE :courselanguage
+							OR detailslecturer LIKE :detailslecturer
+                            OR detailsmorelecturer LIKE :detailsmorelecturer)";
 
         $to_midnight = strtotime('today midnight');
 
         $searchquery_past = $searchquery . " AND starttime <= $to_midnight ORDER BY starttime DESC, coursetitle ASC";
         $searchquery_future = $searchquery . " AND starttime > $to_midnight ORDER BY starttime ASC, coursetitle ASC";
 
-        $past = $DB->get_records_sql($searchquery_past);
-        $future = $DB->get_records_sql($searchquery_future);
+        $param = array(
+          'coursetitle' => $searchterm,
+          'tags' => $searchterm,
+          'teasertext' => $searchterm,
+          'lecturer' => $searchterm,
+          'courselanguage' => $searchterm,
+          'detailslecturer' => $searchterm,
+          'detailsmorelecturer' => $searchterm,
+        );
+
+        $past = $DB->get_records_sql($searchquery_past, $param);
+        $future = $DB->get_records_sql($searchquery_future, $param);
 
         $this->searchresults = array_merge($past, $future);
     }
@@ -93,7 +103,7 @@ class block_ildmetaselect extends block_base
 
 
         // #TODO
-        $searchparam = optional_param('searchterm', null, PARAM_RAW);
+        $searchparam = optional_param('searchterm', null, PARAM_ALPHANUM);
         if (isset($searchparam)) {
             $this->searchterm($searchparam);
         }

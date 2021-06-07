@@ -29,6 +29,7 @@ $string['subjectarea_all'] = 'Alle Wissensgebiete';
 
 $string['german'] = 'Deutsch';
 $string['english'] = 'Englisch';
+$string['spanish'] = 'Spanisch';
 
 $string['lecturer_detail'] = 'Anbieter*innen';
 $string['university_detail'] = 'Anbietende Hochschule';

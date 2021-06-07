@@ -29,6 +29,7 @@ $string['subjectarea_all'] = 'All Subject Areas';
 
 $string['german'] = 'German';
 $string['english'] = 'English';
+$string['spanish'] = 'Spanish';
 
 $string['lecturer_detail'] = 'Course offered by';
 $string['university_detail'] = 'Offering University';

@@ -13,6 +13,7 @@
     flex-flow: wrap;
     max-width: 1200px;
     margin: 0 auto;
+	padding:0px;
 }
 
 .metatile {
@@ -21,25 +22,21 @@
     border-right: 15px solid #1c3d76;
     margin-bottom: 10px;
     padding-top: 20px;
-    width: 100%;
-
+    width: calc(100% - 5px);
+	padding: 20px;
+	min-height:190px;
 }
 
 .metatile h2 {
 	text-align: left !important;
 }
 
-.metatile {
-	width: calc(100% - 55px);
-    padding: 20px;
-	min-height:190px;
-}
+
 
 @media(min-width: 700px) {
 	.metatile {
-		padding: 0;
-
-		width: calc(50% - 20px);
+		padding: 0; 
+		width:100% !important; // calc(50% - 20px);
 	}
 
 	.metatile:nth-child(even) {
@@ -88,7 +85,7 @@
 
 .metatileicon {
 	position: relative;
-	    padding-left: 25px;
+	padding-left: 25px;
 }
 
 .metatileicon:before {
@@ -294,13 +291,13 @@
 
 @media(max-width: 800px) {
 
-.metadetail-header-infos {
-    margin-left: 0;
-}
+	.metadetail-header-infos {
+		margin-left: 0;
+	}
 
-.metadetail-header-image {
-	display: none;
-}
+	.metadetail-header-image {
+		display: none;
+	}
 
 	.metadetail-header td {
 	    width: 100%;
@@ -412,9 +409,9 @@
 
 @media(min-width: 700px) {
 
-.video-container iframe {
-	max-height: 305px;
-}
+	.video-container iframe {
+		max-height: 305px;
+	}
 
 	.meta-share {
 		display: flex;
@@ -445,7 +442,7 @@
 
 .block_ildmetaselect {
 	max-width: 900px;
-	    margin-top: 20px;
+	margin-top: 20px;
 	margin: 0 auto;
 }
 
@@ -467,7 +464,21 @@
 }
 
 .block_ildmetaselect .fitem {
-	    flex: calc(100% / 3) !important;
+	    flex: calc(100% / 3.3) !important;
+}
+.block_ildmetaselect #fitem_id_processingtime {
+    flex: calc(100% / 3.0)!important;
+}
+.block_ildmetaselect #fitem_id_cancel {
+    flex: 0 !important;
+}
+
+html[lang*="en"] .block_ildmetaselect #fitem_id_courselanguage {
+    flex: calc(100% / 3)!important;
+}
+
+.block_ildmetaselect .custom-select {
+    padding: .375rem 1.5rem .375rem .4rem;
 }
 
 .nocoursefound {
@@ -481,7 +492,7 @@ font-size: 18px;
 
 @media (min-width: 700px) {
 	.metatile {
-	    width: calc(100% - 15px) !important;
+	    width: calc(100% - 5px) !important; // -15px
 	}
 }
 
@@ -500,6 +511,9 @@ font-size: 18px;
 	.block_ildmetaselect fieldset>div {
     	display: block;
     	padding: 10px;
+	}
+	.metatile-container {
+		padding:0px 0px;
 	}
 }
 
@@ -639,12 +653,9 @@ font-size: 18px;
 
 @media(max-width: 930px) {
 	.block_ildmetaselect {
-		margin: 0 10px;
+		margin: 0 20px;
 	}
 
-	.metatile {
-
-	}
 
 	.metatile:nth-child(even) {
     margin-left: 0 !important;
@@ -690,8 +701,9 @@ div.metatile-img div.icon-coming-soon {
 
 input#id_cancel.btn-cancel {
     background-color: #275f9c;
+	border-color: #275f9c;
 	color:#f0f8ff;
-	margin-top: -1px; }
+}
 
 /* Bug fixes Moodle Update 3.8 */
 
@@ -707,12 +719,12 @@ input#id_cancel.btn-cancel {
 }
 .block_ildmetaselect .mform .fitem .col-md-3 {display:none !important;}
 .block_ildmetaselect .mform .form-group {margin:0px !important;}
-.block_ildmetaselect .mform .col-md-9 {display:block; flex:unset; max-width:100%; padding:5px 0px 5px 5px; width:auto;}
+.block_ildmetaselect .mform .col-md-9 {display:block; flex:unset; max-width:100%; padding:5px 5px 5px 0px; width:auto;}
 .block_ildmetaselect .mform #fitem_id_search .col-md-9 {width:auto;}
 .block_ildmetaselect .mform #fitem_id_search {flex:0 !imporatant;}	
 .block_ildmetaselect #id_search {width:250px;}
 @media (max-width:767px) {
-	.block_ildmetaselect .mform {flex-wrap:wrap;}
+	.block_ildmetaselect .mform {flex-wrap:wrap; padding-left:0px; padding-right:0px;}
 	.block_ildmetaselect .fitem {flex:unset; display:block; width:100%;}
 	
 }

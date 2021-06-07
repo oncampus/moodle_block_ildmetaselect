@@ -134,6 +134,7 @@ $tosearch->university = ($fromform->university == 0) ? '%' : $fromform->universi
 $lang_list = [
     get_string('german', 'block_ildmetaselect'),
     get_string('english', 'block_ildmetaselect'),
+    get_string('spanish', 'block_ildmetaselect'),
 ];
 
 $language = $lang_list[$getdb->courselanguage];

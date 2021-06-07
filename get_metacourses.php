@@ -13,6 +13,7 @@ function get_metacourses($coursestodisplay, $context) {
     $lang_list = [
         get_string('german', 'block_ildmetaselect'),
         get_string('english', 'block_ildmetaselect'),
+        get_string('spanish', 'block_ildmetaselect'),
     ];
 
 

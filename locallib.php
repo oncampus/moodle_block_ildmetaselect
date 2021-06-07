@@ -455,7 +455,8 @@ function get_filtered_lang_list($records){
 
     $lang_list = [
         get_string('german','block_ildmetaselect'),
-        get_string('english','block_ildmetaselect')
+        get_string('english','block_ildmetaselect'),
+        get_string('spanish','block_ildmetaselect')
     ];
 
     $filtered = array();
