@@ -76,13 +76,13 @@ class block_ildmetaselect extends block_base
         $searchquery_future = $searchquery . " AND starttime > $to_midnight ORDER BY starttime ASC, coursetitle ASC";
 
         $param = array(
-          'coursetitle' => $searchterm,
-          'tags' => $searchterm,
-          'teasertext' => $searchterm,
-          'lecturer' => $searchterm,
-          'courselanguage' => $searchterm,
-          'detailslecturer' => $searchterm,
-          'detailsmorelecturer' => $searchterm,
+          'coursetitle' => '%' . $searchterm . '%',
+          'tags' => '%' . $searchterm . '%',
+          'teasertext' => '%' . $searchterm . '%',
+          'lecturer' => '%' . $searchterm . '%',
+          'courselanguage' => '%' . $searchterm . '%',
+          'detailslecturer' => '%' . $searchterm . '%',
+          'detailsmorelecturer' => '%' . $searchterm . '%',
         );
 
         $past = $DB->get_records_sql($searchquery_past, $param);
