@@ -13,220 +13,219 @@
                                                                                                                                     
     You should have received a copy of the GNU General Public License                                                               
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.                                                                 
-  }}                                                                                                                                  
-  {{!                                                                                                                                 
-    @template block/ocmyproducts                                                                                                        
-
-    detalpage of ildmetaselect
-                                                                                                                                    
-    Classes required for JS:                                                                                                        
-    * none                                                                                                                        
-                                                                                                                                    
-    Data attributes required for JS:                                                                                                
-    * none                                                                                                                
-                                                                                                                                    
-    Context variables required for this template:
-    * url
-    * teasertext
-    * videocode
-    * altpic
-    * learninggoals
-    * gliederung
-    * alllecturers
-    * allauthors
-    * detailsmorelecturer
-    * targetgroup
-    * certificate
-    * license
-    * taglist
-    * tagurlarray
-
-    * coursetitle
-    * edit_string
-    * lecturer
-    * uni
-    * language
-    * subject
-    * processingtime
-    * starttime
-    * fileurl
-
-    * is_enrolled
-    * alllecturers_notempty
-    * allauthors_notempty
-
-    * lecturer_detail
-    * university_detail
-    * courselanguages_detail
-    * subjectarea_detail
-    * avgworkload_detail
-    * hours_detail
-    * starttime_detail
-
-    * free
-    * enrol
-    * tocourse
-
-    * h_awaits
-    * h_learn
-    * h_outline
-    * h_further_auth
-    * h_target_group
-    * h_confirmation
-    * license
-                                                                                                                                    
   }}
+{{!
+  @template block/ocmyproducts
 
-  <div class="metadetail-container">
-	<div class="metadetail-header">
-		<div class="metadetail-header-image metatile-img" style="background-image:url('{{fileurl}}');">
-    {{^started}}
-      <div class="icon-coming-soon"></div>
-    {{/started}}
-		</div>
-		<div class="metadetail-header-infos">
-			<h2>{{{coursetitle}}} {{{edit_string}}}</h2>
-			<table>
-				<tr>
-					<td>{{{lecturer_detail}}}:</td>
-					<td>{{{lecturer}}}</td>
-				</tr>
-				<tr>
-					<td>{{{university_detail}}}:</td>
-					<td>{{{uni}}}</td>
-				</tr>
-				<tr>
-					<td>{{{courselanguage_detail}}}:</td>
-					<td>{{language}}</td>
-				</tr>
-				<tr>
-					<td>{{{subjectarea_detail}}}:</td>
-					<td>{{subject}}</td>
-          {{#started}}<td class="hide-small"><strong class="free">{{{free}}}</strong></td>{{/started}}
-				</tr>
-				<tr>
-					<td>{{{avgworkload_detail}}}:</td>
-					<td>{{processingtime}} {{{hours}}}</td>
-					{{^started}}
-          <td class="hide-small"><strong class="free">{{{free}}}</strong></td>
-          {{/started}}
+  detalpage of ildmetaselect
 
-          {{#started}}
-          <td class="hide-desktop"><strong class="free">{{{free}}}</strong></td>
-					{{#is_enrolled}}
-            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{tocourse}}}</a></td>
-          {{/is_enrolled}}
-          {{^is_enrolled}}
-            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{enrol}}}</a></td>
-          {{/is_enrolled}}
-          {{/started}}
+  Classes required for JS:
+  * none
 
-        </tr>
-				{{^started}}
-				<tr>
+  Data attributes required for JS:
+  * none
 
-          <td>{{{starttime_detail}}}:</td>
-					<td>{{starttime}}</td>
-					<td class="hide-desktop"><strong class="free">{{{free}}}</strong></td>
-					{{#is_enrolled}}
-            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{tocourse}}}</a></td>
-          {{/is_enrolled}}
-          {{^is_enrolled}}
-            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{enrol}}}</a></td>
-          {{/is_enrolled}}
-				</tr>
-        {{/started}}
-        {{#picturecredits}}
-					<tr>
-						<td>{{{picturecredits_detail}}}:</td>
-						<td><a href="{{picturecredits}}" style="color: #fff;">{{picturecredits}}</a></td>
-					</tr>
-					{{/picturecredits}}
-			</table>
-		</div>
-	</div>
+  Context variables required for this template:
+  * url
+  * teasertext
+  * videocode
+  * altpic
+  * learninggoals
+  * gliederung
+  * alllecturers
+  * allauthors
+  * detailsmorelecturer
+  * targetgroup
+  * certificate
+  * license
+  * taglist
+  * tagurlarray
 
-	<div class="meta-share">
-		<div class="meta-share-facebook"><a href="https://www.facebook.com/sharer/sharer.php?u={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
-		<div class="meta-share-twitter"><a href="https://twitter.com/intent/tweet?url={{{url}}}">{{# str}} metatweet, block_ildmetaselect {{/ str}}</a></div>
-		<div class="meta-share-whatsapp"><a href="whatsapp://send?text={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
-		<div class="meta-share-linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&amp;summary=&amp;url={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
-		<div class="meta-share-xing"><a href="https://www.xing.com/social_plugins/share?url={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
-		<div class="meta-share-mail"><a href="mailto:?subject={{coursetitle}}&amp;body={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
-	</div>
+  * coursetitle
+  * edit_string
+  * lecturer
+  * uni
+  * language
+  * subject
+  * processingtime
+  * starttime
+  * fileurl
 
-	<div class="metadetail-body">
+  * is_enrolled
+  * alllecturers_notempty
+  * allauthors_notempty
 
-		<div class="md-teasertext">
-    {{#teasertext}}
-      <h2>{{{h_awaits}}}</h2>
-      {{{teasertext}}}
-    {{/teasertext}}
+  * lecturer_detail
+  * university_detail
+  * courselanguages_detail
+  * subjectarea_detail
+  * avgworkload_detail
+  * hours_detail
+  * starttime_detail
+
+  * free
+  * enrol
+  * tocourse
+
+  * h_awaits
+  * h_learn
+  * h_outline
+  * h_further_auth
+  * h_target_group
+  * h_confirmation
+  * license
+
+}}
+
+<div class="metadetail-container">
+    <div class="metadetail-header">
+        <div class="metadetail-header-image metatile-img" style="background-image:url('{{fileurl}}');">
+            {{^started}}
+                <div class="icon-coming-soon"></div>
+            {{/started}}
+        </div>
+        <div class="metadetail-header-infos">
+            <h2>{{{coursetitle}}} {{{edit_string}}}</h2>
+            <table>
+                <tr>
+                    <td>{{{lecturer_detail}}}:</td>
+                    <td>{{{lecturer}}}</td>
+                </tr>
+                <tr>
+                    <td>{{{university_detail}}}:</td>
+                    <td>{{{uni}}}</td>
+                </tr>
+                <tr>
+                    <td>{{{courselanguage_detail}}}:</td>
+                    <td>{{language}}</td>
+                </tr>
+                <tr>
+                    <td>{{{subjectarea_detail}}}:</td>
+                    <td>{{subject}}</td>
+                    {{#started}}<td class="hide-small"><strong class="free">{{{free}}}</strong></td>{{/started}}
+                </tr>
+                <tr>
+                    <td>{{{avgworkload_detail}}}:</td>
+                    <td>{{processingtime}} {{{hours}}}</td>
+                    {{^started}}
+                        <td class="hide-small"><strong class="free">{{{free}}}</strong></td>
+                    {{/started}}
+
+                    {{#started}}
+                        <td class="hide-desktop"><strong class="free">{{{free}}}</strong></td>
+                        {{#is_enrolled}}
+                            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{tocourse}}}</a></td>
+                        {{/is_enrolled}}
+                        {{^is_enrolled}}
+                            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{enrol}}}</a></td>
+                        {{/is_enrolled}}
+                    {{/started}}
+
+                </tr>
+                {{^started}}
+                    <tr>
+
+                        <td>{{{starttime_detail}}}:</td>
+                        <td>{{starttime}}</td>
+                        <td class="hide-desktop"><strong class="free">{{{free}}}</strong></td>
+                        {{#is_enrolled}}
+                            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{tocourse}}}</a></td>
+                        {{/is_enrolled}}
+                        {{^is_enrolled}}
+                            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{enrol}}}</a></td>
+                        {{/is_enrolled}}
+                    </tr>
+                {{/started}}
+                {{#picturecredits}}
+                    <tr>
+                        <td class="metapicture" colspan="2">{{{picturecredits_detail}}}: {{picturecredits}}</td>
+                    </tr>
+                {{/picturecredits}}
+            </table>
+        </div>
     </div>
-		<div class="md-teaservideo">
-    {{#videocode}}
-      {{{videocode}}}
-    {{/videocode}}
-    {{^videocode}}
-      <img src="{{altpic}}"></img>
-    {{/videocode}}
+
+    <div class="meta-share">
+        <div class="meta-share-facebook"><a href="https://www.facebook.com/sharer/sharer.php?u={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
+        <div class="meta-share-twitter"><a href="https://twitter.com/intent/tweet?url={{{url}}}">{{# str}} metatweet, block_ildmetaselect {{/ str}}</a></div>
+        <div class="meta-share-whatsapp"><a href="whatsapp://send?text={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
+        <div class="meta-share-linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&amp;summary=&amp;url={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
+        <div class="meta-share-xing"><a href="https://www.xing.com/social_plugins/share?url={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
+        <div class="meta-share-mail"><a href="mailto:?subject={{coursetitle}}&amp;body={{{url}}}">{{# str}} metashare, block_ildmetaselect {{/ str}}</a></div>
     </div>
-		<div class="md-learninggoals">
-    {{#learninggoals}}
-      <h2>{{{h_learn}}}</h2>
-      {{{learninggoals}}}
-    {{/learninggoals}}
+
+    <div class="metadetail-body">
+
+        <div class="md-teasertext">
+            {{#teasertext}}
+                <h2>{{{h_awaits}}}</h2>
+                {{{teasertext}}}
+            {{/teasertext}}
+        </div>
+        <div class="md-teaservideo">
+            {{#videocode}}
+                {{{videocode}}}
+            {{/videocode}}
+            {{^videocode}}
+                <img src="{{altpic}}"></img>
+            {{/videocode}}
+        </div>
+        <div class="md-learninggoals">
+            {{#learninggoals}}
+                <h2>{{{h_learn}}}</h2>
+                {{{learninggoals}}}
+            {{/learninggoals}}
+        </div>
+        <div class="md-structure">
+            {{#gliederung}}
+                <h2>{{{h_outline}}}</h2>
+                {{{gliederung}}}
+            {{/gliederung}}
+        </div>
+        <div class="md-lecturer">
+            {{#alllecturers_notempty}}
+                <h2>{{{lecturer_detail}}}</h2>
+            {{/alllecturers_notempty}}
+            {{#alllecturers}}
+                <div class="lecturer_container"><div class="lecturer_imgcontainer {{class}}"><img src="{{img}}"/></div><div class="lecturer_text">{{{div}}}</div></div>
+            {{/alllecturers}}
+        </div>
+        <div class="md-lecturer">
+            {{#allauthors_notempty}}
+                <h2>{{{h_further_auth}}}</h2>
+            {{/allauthors_notempty}}
+            {{#allauthors}}
+                <div class="lecturer_container"><div class="lecturer_imgcontainer {{class}}"><img src="{{img}}"/></div><div class="lecturer_text">{{{div}}}</div></div>
+            {{/allauthors}}
+        </div>
+        <div class="md-morelecturer">
+            {{#detailsmorelecturer}}
+                <h2>{{{h_further_auth}}}</h2>
+                {{{detailsmorelecturer}}}
+            {{/detailsmorelecturer}}
+        </div>
+        <div class="md-targetgroup">
+            {{#targetgroup}}
+                <h2>{{{h_target_group}}}</h2>
+                {{{targetgroup}}}
+            {{/targetgroup}}
+        </div>
+        <div class="md-certificateofachievement">
+            {{#certificate}}
+                <h2>{{{h_confirmation}}}</h2>
+                {{{certificate}}}
+            {{/certificate}}
+        </div>
+        <div class="md-license">
+            {{#license}}
+                <h2>{{{licensetitle}}}</h2>
+                {{{license}}}
+            {{/license}}
+        </div>
+        <div class="md-tags">
+            {{#taglist}}
+                <span class="metatag"><a href="{{url}}">{{tag}}</a></span>
+            {{/taglist}}
+        </div>
     </div>
-		<div class="md-structure">
-    {{#gliederung}}
-      <h2>{{{h_outline}}}</h2>
-      {{{gliederung}}}
-    {{/gliederung}}
-    </div>
-		<div class="md-lecturer">
-    {{#alllecturers_notempty}}
-    <h2>{{{lecturer_detail}}}</h2>
-    {{/alllecturers_notempty}}
-    {{#alllecturers}}
-      <div class="lecturer_container"><div class="lecturer_imgcontainer {{class}}"><img src="{{img}}"/></div><div class="lecturer_text">{{{div}}}</div></div>
-    {{/alllecturers}}
-    </div>
-    	<div class="md-lecturer">
-      {{#allauthors_notempty}}
-        <h2>{{{h_further_auth}}}</h2>
-      {{/allauthors_notempty}}
-      {{#allauthors}}
-        <div class="lecturer_container"><div class="lecturer_imgcontainer {{class}}"><img src="{{img}}"/></div><div class="lecturer_text">{{{div}}}</div></div>
-      {{/allauthors}}
-      </div>
-		<div class="md-morelecturer">
-    {{#detailsmorelecturer}}
-      <h2>{{{h_further_auth}}}</h2>
-      {{{detailsmorelecturer}}}
-    {{/detailsmorelecturer}}
-    </div>
-		<div class="md-targetgroup">
-    {{#targetgroup}}
-      <h2>{{{h_target_group}}}</h2>
-      {{{targetgroup}}}
-    {{/targetgroup}}
-    </div>
-		<div class="md-certificateofachievement">
-    {{#certificate}}
-      <h2>{{{h_confirmation}}}</h2>
-      {{{certificate}}}
-    {{/certificate}}
-    </div>
-		<div class="md-license">
-    {{#license}}
-      <h2>{{{licensetitle}}}</h2>
-      {{{license}}}
-    {{/license}}
-    </div>
-		<div class="md-tags">
-    {{#taglist}}
-      <span class="metatag"><a href="{{url}}">{{tag}}</a></span>
-    {{/taglist}}
-    </div>
-	</div>
 </div>

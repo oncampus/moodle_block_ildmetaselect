@@ -19,7 +19,7 @@ class search_form extends moodleform {
 		$sform->disable_form_change_checker();
 
 		$sform->addElement('text', 'search', 'Suche');
-		$sform->setType('search', PARAM_RAW);
+		$sform->setType('search', PARAM_ALPHANUM);
 
 		$sform->addElement('submit', 'submitbutton', get_string('search'));
 	}
