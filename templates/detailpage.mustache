@@ -124,16 +124,9 @@
                 </tr>
                 {{^started}}
                     <tr>
-
                         <td>{{{starttime_detail}}}:</td>
                         <td>{{starttime}}</td>
                         <td class="hide-desktop"><strong class="free">{{{free}}}</strong></td>
-                        {{#is_enrolled}}
-                            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{tocourse}}}</a></td>
-                        {{/is_enrolled}}
-                        {{^is_enrolled}}
-                            <td class="hide-small"><a class="btn btn-sign" href="{{{url}}}">{{{enrol}}}</a></td>
-                        {{/is_enrolled}}
                     </tr>
                 {{/started}}
                 {{#picturecredits}}
