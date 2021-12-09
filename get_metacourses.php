@@ -116,7 +116,7 @@ function get_metacourses($coursestodisplay, $context) {
                 $render_data->starttime_detail = get_string('starttime_detail', 'block_ildmetaselect');
 
                 $string .= $OUTPUT->render_from_template("block_ildmetaselect/get_metacourse", $render_data);
-            }
+            } 
         }
     } else {
         $string .= '<span class="nocoursefound">' . get_string('noresultsfound', 'block_ildmetaselect') . '</span>';

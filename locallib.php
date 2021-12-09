@@ -167,7 +167,13 @@ function select_prepare($select)
 function get_courses_records($fromform)
 {
     // Quick & Dirty
-    if($fromform->starttime === 'all') {
+    if($fromform->starttime === '-') {
+        $past = get_courses_records_time($fromform, true);
+        $future = get_courses_records_time($fromform, false);
+
+        return array_merge($past, $future);
+
+    } elseif($fromform->starttime === 'all'){
         $past = get_courses_records_time($fromform, true);
         $future = get_courses_records_time($fromform, false);
 
@@ -202,7 +208,7 @@ function get_courses_records_time($fromform, $past)
                 AND starttime $tosearch->starttime
                 AND noindexcourse != 1";
     if ($past) {
-        $query .= " AND starttime >= $to_midnight ORDER BY starttime DESC, coursetitle ASC";
+        $query .= " AND starttime <= $to_midnight ORDER BY starttime DESC, coursetitle ASC";
     } else {
         $query .= " AND starttime > $to_midnight ORDER BY starttime ASC, coursetitle ASC";
     }

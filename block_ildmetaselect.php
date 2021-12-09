@@ -68,7 +68,8 @@ class block_ildmetaselect extends block_base
 							$subjectarea_query
 							OR courselanguage LIKE :courselanguage
 							OR detailslecturer LIKE :detailslecturer
-                            OR detailsmorelecturer LIKE :detailsmorelecturer)";
+                            OR detailsmorelecturer LIKE :detailsmorelecturer)
+                            AND noindexcourse <> 1";
 
         $to_midnight = strtotime('today midnight');
 
@@ -103,7 +104,7 @@ class block_ildmetaselect extends block_base
 
 
         // #TODO
-        $searchparam = optional_param('searchterm', null, PARAM_RAW);
+        $searchparam = optional_param('searchterm', null, PARAM_ALPHANUM);
         if (isset($searchparam)) {
             $this->searchterm($searchparam);
         }
@@ -137,16 +138,16 @@ class block_ildmetaselect extends block_base
 
         if ($mform->is_cancelled()) {
             // not possible
-            redirect($CFG->wwwroot . "#inst" . $this->instance->id);
+            redirect($CFG->wwwroot);
         } else if ($fromform = $mform->get_data()) {
             if (isset($fromform->search) && $fromform->search !== '') {
                 $this->searchterm($fromform->search);
                 $result .= get_metacourses($this->searchresults, $context);
+
             } else {
                 $coursestodisplay = get_courses_records($data);
                 $result .= get_metacourses($coursestodisplay, $context);
             }
-            //$coursestodisplay = get_courses_records($fromform);
         } else {
             if (!isset($this->searchresults)) {
 
@@ -174,6 +175,7 @@ class block_ildmetaselect extends block_base
                 $result .= get_metacourses($this->searchresults, $context);
             }
         }
+
         $this->content->text = $result;
 
         $this->page->requires->js_call_amd('block_ildmetaselect/ildmetaselect', 'init', array());
