@@ -141,31 +141,9 @@ function select_prepare($select)
     }
 }
 
-/*function get_courses_records($fromform){
-    global $DB;
-
-    $tosearch = new stdClass;
-    $tosearch->courselanguage = select_prepare($fromform->courselanguage);
-    $tosearch->subjectarea = select_prepare($fromform->subjectarea);
-    $tosearch->university = select_prepare($fromform->university);
-    $tosearch->processingtime = processingtime_to_sql($fromform->processingtime);
-    $tosearch->starttime = starttime_to_sql($fromform->starttime);
-
-    $query = "
-			SELECT * FROM mdl_ildmeta
-			WHERE
-			university LIKE '$tosearch->university'
-			AND subjectarea LIKE '$tosearch->subjectarea'
-			AND courselanguage LIKE '$tosearch->courselanguage'
-			AND processingtime $tosearch->processingtime
-            AND starttime $tosearch->starttime
-            AND noindexcourse != 1";
-
-    return $DB->get_records_sql($query);
-}*/
-
 function get_courses_records($fromform)
 {
+
     // Quick & Dirty
     if($fromform->starttime === '-') {
         $past = get_courses_records_time($fromform, true);
@@ -174,10 +152,9 @@ function get_courses_records($fromform)
         return array_merge($past, $future);
 
     } elseif($fromform->starttime === 'all'){
-        $past = get_courses_records_time($fromform, true);
         $future = get_courses_records_time($fromform, false);
 
-        return array_merge($past, $future);
+        return $future;
 
     } else {
         $future = get_courses_records_time($fromform, false);
@@ -205,8 +182,8 @@ function get_courses_records_time($fromform, $past)
                 subjectarea LIKE '$tosearch->subjectarea'
                 AND courselanguage LIKE '$tosearch->courselanguage'
                 AND processingtime $tosearch->processingtime
-                AND starttime $tosearch->starttime
                 AND noindexcourse != 1";
+
     if ($past) {
         $query .= " AND starttime <= $to_midnight ORDER BY starttime DESC, coursetitle ASC";
     } else {
