@@ -35,7 +35,7 @@ function starttime_to_sql($starttime)
             return "< " . $time_now;
             break;
         case 'less2weeks':
-            return '< ' . ($time_now + ($time_week * 2));
+            return '< ' . ($time_now + ($time_week * 2))  . ' AND starttime > ' . $time_now;
             break;
         case 'between3and4weeks':
             return 'BETWEEN ' . ($time_now + ($time_week * 2)) . ' AND ' . ($time_now + ($time_week * 4));
@@ -143,18 +143,17 @@ function select_prepare($select)
 
 function get_courses_records($fromform)
 {
-
     // Quick & Dirty
-    if($fromform->starttime === '-') {
+    if($fromform->starttime === '-' OR $fromform->starttime === 'all') {
         $past = get_courses_records_time($fromform, true);
         $future = get_courses_records_time($fromform, false);
 
         return array_merge($past, $future);
 
-    } elseif($fromform->starttime === 'all'){
-        $future = get_courses_records_time($fromform, false);
+    } elseif($fromform->starttime === 'current'){
+        $past = get_courses_records_time($fromform, true);
 
-        return $future;
+        return $past;
 
     } else {
         $future = get_courses_records_time($fromform, false);
@@ -187,7 +186,7 @@ function get_courses_records_time($fromform, $past)
     if ($past) {
         $query .= " AND starttime <= $to_midnight ORDER BY starttime DESC, coursetitle ASC";
     } else {
-        $query .= " AND starttime > $to_midnight ORDER BY starttime ASC, coursetitle ASC";
+        $query .= " AND starttime $tosearch->starttime ORDER BY starttime ASC, coursetitle ASC";
     }
 
     // TODO: Improve the processing time
