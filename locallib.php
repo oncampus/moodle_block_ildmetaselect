@@ -145,10 +145,18 @@ function get_courses_records($fromform)
 {
     // Quick & Dirty
     if($fromform->starttime === '-' OR $fromform->starttime === 'all') {
+
         $past = get_courses_records_time($fromform, true);
         $future = get_courses_records_time($fromform, false);
 
-        return array_merge($past, $future);
+        // To avoid double entries.
+        foreach($future as $keys => $values) {
+            if (! array_key_exists($keys, $past)) {
+                $past[$keys] = $values;
+            }
+        }
+
+        return $past;
 
     } elseif($fromform->starttime === 'current'){
         $past = get_courses_records_time($fromform, true);
